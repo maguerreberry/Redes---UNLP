@@ -52,18 +52,18 @@
 	Los enlaces deben definirse en modo troncal(trunk). Esto permite que las interfaces de los dispositivos admitan paquetes de diferentes VLANs en un mismo enlace.
 	\item \textbf{¿Que nombre reciben los puertos donde se conectan las PCs? ¿Es necesario realizar alguna configuración especial en las PCs para que funcionen en un VLAN en particular?}\\
 	Los puertos donde se conectan las PC reciben el nombre de puertos de acceso. No es necesario configurar algo especial en las PCs, para ellas las VLAN son transparentes.
-	\item \textbf{Realizar las configuraciones correspondientes en todos los switchs para lograr esa conectividad.}\\
+	\item \textbf{Realizar las configuraciones correspondientes en todos los switch para lograr esa conectividad.}\\
 	En el switch \textbf{2001} se configuran los puertos eth0 y eth2 como de acceso a la VLAN 10 y el puerto eth1 como trunk (permite el paso de VLAN 10). En el switch \textbf{2002} se configura el puerto eth0 como de acceso a la VLAN 20 y los puertos eth1 y eth2 como trunk(eth1 permite el paso de VLAN 10 y eth2 permite el paso de VLAN 10 y 20). En el switch \textbf{2003} se configura el puerto eth0 como de acceso a la VLAN 20, el puerto eth1 como de acceso a la VLAN 10 y el puerto eth2 como trunk.
-	\item \textbf{Utilizar la red 192.168.10.0/26 para la VLAN 10 y la 192.168.10.128/26 para la VLAN 20 y asignar una IP a cada uno de los nodos.} \\
-	\item \textbf{Comprobar que los nodos de cada VLAN se pueden comunicar entre ellos, pero no con los nodos de la otra VLAN.} \\
+	\item \textbf{Utilizar la red 192.168.10.0/26 para la VLAN 10 y la 192.168.10.128/26 para la VLAN 20 y asignar una IP a cada uno de los nodos.}
+	\item \textbf{Comprobar que los nodos de cada VLAN se pueden comunicar entre ellos, pero no con los nodos de la otra VLAN.}
 	\item \textbf{¿Que modificación sufre una trama Ethernet para poder adecuarse al trunking de VLANs?.} \\
 	Se le agrega una etiqueta extra con los campos definidos en IEEE 802.1q.
 	\item \textbf{¿Cual es el número máximo de VLANs que se pueden definir? ¿A qué se debe este máximo?.} \\
 	El tamaño del campo VLAN ID es de 12 bits por ende el número máximo es 4096. 
-	\item \textbf{Capturar tráfico entre los dispositivos 2001 y 2002 y hacer un ping entre los nodos de la misma VLAN. ¿Qué información es transportada en la trama?.} \\
-	Dentro de la trama ethernet está encapsulado los campos 802.1q y aquí se encuentra el VLAN ID. \\
+	\item \textbf{Capturar tráfico entre los dispositivos 2001 y 2002 y hacer un ping entre los nodos de la misma VLAN. ¿Qué información es transportada en la trama?.}
+	Dentro de la trama ethernet está encapsulado los campos 802.1q y aquí se encuentra el VLAN ID.
 	\item \textbf{¿Que debería utilizar si desea conectar ambas VLANs?.} \\
-	Un router \textit{one armed router} o \textit{on a stick}, o un switch capa 3.\\
+	Un router \textit{one armed router} o \textit{on a stick}, o un switch capa 3.
 	\item \textbf{Investigar QinQ (IEEE Standard 802.1.ad).} \\
 	Permite insertar múltiples etiquetas VLAN en una misma trama ethernet; juntas crean una jerarquía de etiquetas siendo la etiqueta más cerca del payload la última en ser leída.
 \end{enumerate}
@@ -71,7 +71,7 @@
 \begin{itemize}
     \item{VLAN Trunking to Guest Domains with Open vSwitch} \emph{VLAN Trunking to Guest Domains with Open vSwitch},  available at \url{https://blog.scottlowe.org/2013/05/28/vlan-trunking-to-guest-domains-with-open-vswitch/}.
     
-    \item{VLAN Configuration on Open vswitch} \emph{VLAN Configuration on Open vswitch},  available at \url{https://medium.com/@arrosid/vlan-configuration-on-open-vswitch-83459d8c0cfc}.
+    \item{VLAN Configuration on Open vswitch} \emph{VLAN Configuration on Open vswitch}, available at \url{https://medium.com/@arrosid/vlan-configuration-on-open-vswitch-83459d8c0cfc}.
     
     \item{VLAN TRUNKING CONFIGURATION ON OPEN VSWITCH} available at \url{https://medium.com/@arrosid/vlan-trunking-configuration-on-open-vswitch-f598a965c28}.
 \end{itemize}
