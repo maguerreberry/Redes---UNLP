@@ -1,0 +1,6 @@
+/interface bridge 
+add name=2002
+/interface bridge port 
+add bridge=2002 interface=ether1
+add bridge=2002 interface=ether2
+add bridge=2002 interface=ether3

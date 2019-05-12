@@ -1,0 +1,14 @@
+ 0  ovs-vsctl set port eth0 tag=10
+   1  ovs-vsctl set port eth1 tag=20
+   2  ovs-vsctl show
+   3 ovs-vsctl set port eth1 trunks=10,20
+   4 ovs-vsctl set port eth1 trunks=
+   5  ovs-vsctl set port eth1 tag=20
+   6 ovs-vsctl set port eth2 trunks=10,20
+   7  ovs-vsctl show
+   8 ovs-vsctl set port eth1 trunks=1
+   9  ovs-vsctl show
+  10 ovs-vsctl remove port eth1 trunks=1
+  11 ovs-vsctl remove port eth1 trunks 1
+  12  ovs-vsctl show
+  13 history

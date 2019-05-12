@@ -1,0 +1,12 @@
+# may/05/2019 21:40:33 by RouterOS 6.41.4
+# # software id =
+# #
+# #
+# #
+ /interface wiireless security-profiles
+ set [ find default=yes ] supplicant-identity=MikroTik
+ /ip address
+ add address=10.10.10.2/24 interface=ether1 network=10.10.10.0
+ add address=192.168.30.254/24 interface=ether2 network=192.168.30.0
+ /system identity
+ set name=2002
