@@ -1,12 +1,14 @@
 %++++++++++++++++++++++++++++++++++++++++
 % Don't modify this section unless you know what you're doing!
 \documentclass[letterpaper,12pt]{article}
+\usepackage[utf8]{inputenc}
 \usepackage{tabularx} % extra features for tabular environment
 \usepackage{amsmath}  % improve math presentation
 \usepackage{graphicx} % takes care of graphic including machinery
 \usepackage[margin=1in,letterpaper]{geometry} % decreases margins
 \usepackage{cite} % takes care of citations
 \usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\usepackage[table,xcdraw]{xcolor}
 \hypersetup{
 	colorlinks=true,       % false: boxed links; true: colored links
 	linkcolor=blue,        % color of internal links
@@ -111,7 +113,7 @@
     
     \item \textbf{¿Cómo reconoce el servidor DHCP en 2002 de cuál pool de conexiones tiene que retornar una dirección IP cuando le llegue una solicitud por la interface ether1? Realizar una captura entre los routers 2001 y 2002 para ver esta información.} \\
     
-    Cuando se configura el servidor DHCP en 2002 uno debe indicar que direcciones relay se van a aceptar y asignarles un pool de direcciones a cada relay. Como se puede ver en la imagen, cuando llega un mensaje de discover trae consigo la direccion IP de relay, luego el server puede identificar que pool usar.
+    Cuando se configura el servidor DHCP en 2002 uno debe indicar que direcciones relay se van a aceptar y asignarles un pool de direcciones a cada relay. Como se puede ver en la imagen, cuando llega un mensaje de discover trae consigo la dirección IP de relay, luego el server puede identificar que pool usar.
     
     \begin{figure}[ht] 
         \centering \includegraphics[width=0.8\columnwidth]{lab12relay.PNG}
@@ -131,4 +133,56 @@
     \item{Mikrotik Docs: Manual:IP/DHCP Server} \emph{Mikrotik Docs: Manual:IP/DHCP Server},  available at \url{https://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Server}.
     \item{Mikrotik Docs: Manual:IP/DHCP Relay} \emph{Mikrotik Docs: Manual:IP/DHCP Relay},  available at \url{https://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay}.
 \end{itemize}
+
+\section{Spanning Tree Protocol (STP)}
+
+\begin{enumerate}
+	\item \textbf{¿Qué dispositivo fue elegido como root del RSTP? ¿Qué dispositivo tiene  un  puerto  bloqueado  para  romper  el  loop?  ¿En  qué  estado  se encuentran los puertos de cada dispositivo?} \\ 
+	El dispositivo 2003 es elegido como RSTP porque tiene el bridge-id más bajo, que es calculado en base a la prioridad del bridge y la MAC del bridge. 
+
+	El 2002 tiene el puerto ether2 bloqueado.
+
+	Los puertos de cada dispositivo se encuentran en los siguientes estados:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|
+		>{\columncolor[HTML]{C0C0C0}}l |l|l|l|}
+		\hline
+					& \cellcolor[HTML]{C0C0C0}\textbf{ether1} & \cellcolor[HTML]{C0C0C0}\textbf{ether2} & \cellcolor[HTML]{C0C0C0}\textbf{ether3} \\ \hline
+		\textbf{2001} & Forwarding (Designado)                               & Forwarding (Designado)                               & Forwarding (Root)                                    \\ \hline
+		\textbf{2002} & Forwarding (Designado)                               & Discarding (Alternativo)                             & Forwarding (Root)                                    \\ \hline
+		\textbf{2003} & Forwarding (Designado)                               & Forwarding (Designado)                               & Forwarding (Designado)                               \\ \hline
+		\textbf{2004} & Forwarding (Designado)                               & Forwarding (Root)                                    & Forwarding (Designado)                               \\ \hline
+		\end{tabular}
+	\end{table}
+
+	\item \textbf{¿En qué estado pueden estar los puertos si se usa RSTP? Compararlo con los estados posibles de STP.} \\
+	RSTP
+	\begin{itemize}
+		\item Discarding: el puerto esta bloqueado para el trafico del usuario.
+		\item Learning: el puerto aún no conmuta tráfico del usuario pero esta rellenando su tabla de direcciones MAC.
+		\item Forwarding: el puerto funciona normalmente.
+	\end{itemize}
+	STP define 5 estados posibles para los puertos Listening, Blocking, Disabled, Learning y Forwarding. Listening, Blocking y Disabled son resumidos en el estado Discarding de RSTP, Learning y Forwarding cumplen la misma función que en RSTP. 
+
+	\item \textbf{En el dispositivo que tiene uno de los puertos bloqueados deshabilitar la interface que no está bloqueada. ¿Cómo reacciona la red ante este evento?} \\
+	En 2002, si se deshabilita el puerto ether3, el puerto ether2 pasa a asumir el rol de Root. Si ether3 se habilita nuevamente,esta interfaz vuelve a tomar el rol de Root porque esta conectado al bridge con menor bridge-id.
+
+	\item \textbf{Seleccionar un dispositivo diferente al que funciona como root y configurarlo para que sea el nuevo root.} \\
+	Esto se logra cambiando la prioridad de un bridge con el siguiente comando: "interface bridge set priority=0x5000".
+
+	\item \textbf{Deshabilitar  el  RSTP  en  todos  los  dispositivos. ¿Qué  sucede  con  la red? (esto puede hacer que la red deje de funcionar y se carguen los dispositivos. Cuidado: puede que tenga que detener la simulación).} \\
+	Se genera una tormenta de broadcast a nivel de capa 2.
+	
+	\item \textbf{Investigar  MSTP  y  TRILL  (Transparent  Interconnection  of  Lots  of Links)} \\
+	MSTP es una extensión de RSTP que permite generar multiples instancias de STP dentro de una misma topología física. Cada instancia spanning-tree puede incluir una o más VLANs. Esto permite que un puerto perteneciente a dos instancias STP este deshabilitado para una pero habilitado para otra.
+	
+	TRILL es un mecanismo que reemplaza STP. Su principal objetivo es evitar el bloqueo de puertos (como hace STP) aplicando técnicas de routeo (ISIS) en capa 2.  
+\end{enumerate}
+\subsection{Enlaces consultados}
+\begin{itemize}
+    \item{MicroNugget: What is TRILL?},  available at \url{https://www.youtube.com/watch?v=I7mvUrc90jQ}.
+    \item{Configuring MSTP Protocol},  available at \url{https://www.juniper.net/documentation/en_US/junos/topics/topic-map/spanning-tree-configuring-mstp.html}.
+\end{itemize}
+
 \end{document}
