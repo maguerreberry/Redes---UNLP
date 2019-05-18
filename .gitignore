@@ -1,8 +1,8 @@
-Practica1/docs/main.aux
-Practica1/docs/main.fdb_latexmk
-Practica1/docs/main.fls
-Practica1/docs/main.log
-Practica1/docs/main.out
-Practica1/docs/main.pdf
-Practica1/docs/main.synctex.gz
+Practica[0-9]/docs/main.aux
+Practica[0-9]/docs/main.fdb_latexmk
+Practica[0-9]/docs/main.fls
+Practica[0-9]/docs/main.log
+Practica[0-9]/docs/main.out
+Practica[0-9]/docs/main.pdf
+Practica[0-9]/docs/main.synctex.gz
 *.code-workspace

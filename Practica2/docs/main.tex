@@ -1,0 +1,44 @@
+%++++++++++++++++++++++++++++++++++++++++
+% Don't modify this section unless you know what you're doing!
+\documentclass[letterpaper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{amsmath}  % improve math presentation
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage[margin=1in,letterpaper]{geometry} % decreases margins
+\usepackage{cite} % takes care of citations
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+\usepackage[table,xcdraw]{xcolor}
+\hypersetup{
+	colorlinks=true,       % false: boxed links; true: colored links
+	linkcolor=blue,        % color of internal links
+	citecolor=blue,        % color of links to bibliography
+	filecolor=magenta,     % color of file links
+	urlcolor=blue         
+}
+%++++++++++++++++++++++++++++++++++++++++
+
+
+\begin{document}
+
+\title{Práctica 2 - Ruteo}
+\author{Matthew Aguerreberry, Natasha Tomattis}
+\date{\today}
+\maketitle
+
+% \begin{abstract} 
+% \end{abstract}
+
+
+\section{Practica de Ruteo - RIP}
+	\begin{enumerate}
+		\item \textbf{RIPv1 es un protocolo de vector-distancia o estado-enlace? Y RIPv2? Conoce algun otro protocolo de ruteo de la misma familia} \\
+		Por su comportamiento y la forma de determinar la ruta mas corta tanto RIPv1 como RIPv2 son de tipo vector-distancia. El protocolo de ruteo externo BGP pertence a la misma familia de RIP.
+		\item \textbf{Pertenecen al grupo de IGP o EGP?}\\
+		RIP pertenece al grupo de IGP (\textit{Internal Gateway Protocol}, o protocolos de ruteo interno)
+		\item \textbf{Que mejoras incluye RIPv2 con respecto a RIPv1?}\\
+		Por un lado RIPv2 permite la distribucion de actualizaciones a traves multicast (usando el grupo fijo 224.0.0.9), a diferencia de RIPv1 que utiliza direcciones broadcast. Por otro lado, RIPv1 solo soporta esquemas de direccionamiento IP classful, ya que en su cabecera no admite el agregado de mascaras de subred, RIPv2 amplia su cabecera y permite de esta forma esquemas de direcciones IP clasless. Ademas, RIPv2 agrega autenticacion en los mensajes.
+
+	\end{enumerate}
+\end{document}
