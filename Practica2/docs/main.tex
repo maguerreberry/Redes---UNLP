@@ -32,6 +32,15 @@
 
 
 \section{Practica de Ruteo - RIP}
+\begin{figure}[ht] 
+        
+	\centering \includegraphics[width=0.8\columnwidth]{figure/topo.png}
+	%\includegraphics[width=1.0\columnwidth]{sr_setup.pdf}
+	\caption{
+			\label{fig:samplesetup} % spaces are big no-no 
+			Implementación Ejercicio 1.
+	}
+\end{figure}
 	\begin{enumerate}
 		\item \textbf{¿RIPv1 es un protocolo de vector-distancia o estado-enlace? ¿Y RIPv2? ¿Conoce algún otro protocolo de ruteo de la misma familia?} \\
 		Por su comportamiento y la forma de determinar la ruta mas corta tanto RIPv1 como RIPv2 son de tipo vector-distancia. El protocolo de ruteo externo BGP pertence a la misma familia de RIP.
@@ -54,7 +63,7 @@
 		\item \textbf{Conectar los routers según el diagrama de la figura 1.}
 		\item \textbf{Configurar las interfaces de acuerdo al diagrama.}
 		\item \textbf{Configurar RIPv1 en todas las interfaces. ¿Es posible alcanzar todas las redes?} \\
-		Depende de las que se distribuyan por RIP. 
+		Depende de las redes que se distribuyan por RIP. 
 		
 		\item \textbf{Realice una captura entre los routers 2001 y 2003:}
 		\begin{itemize}
@@ -74,7 +83,7 @@
 		\item \textbf{Modifique  el  direccionamiento  de  la  red  entre  2002  y  VPCS-2  a  la dirección 192.168.10.64/26. ¿Que sucede con el ruteo?} \\
 		Se genera conflicto ya que la subred entre 2001 y VPCS-1 equivale a la misma subred classful.
 		\item \textbf{¿Como lo solucionaría? Encuentre los comandos para solucionar este problema sin cambiar el direccionamiento} \\
-		Pasando a RIPv2 que admite subredes classless.
+		Configurando las interfaces en RIPv2 que admite direccionamiento classless.
 		\item \textbf{Realice nuevamente una captura entre los routers 2001 y 2003;}
 		\begin{itemize}
 			\item \textbf{¿Se modifican el protocolo y capa de transporte que utiliza RIPv2 con respecto a RIPv1?} \\
@@ -90,11 +99,21 @@
 		La distancia administrativa indica la fiabilidad de un protocolo de enrutamiento, depende de cada fabricante. Se utiliza para determinar una ruta cuando hay dos o más rutas a un mismo destino para dos protocolos de enrutamiento. \\
 		La métrica se utiliza para comparar rutas al mismo destino pero del mismo protocolo de enrutamiento.
 		\item \textbf{Active ruteo estático en todo los routers de manera que  se puedan alcanzar todas las redes pero que sirvan como rutas de backup (RIP debe tener prioridad)}
+		\begin{figure}[ht] 
+        
+			\centering \includegraphics[width=0.8\columnwidth]{figure/static.png}
+			\caption{
+					\label{fig:samplesetup} % spaces are big no-no 
+					Ruteo estatico activado en router 2001.
+			}
+		\end{figure}
 		\item \textbf{¿Usaría RIP como protocolo de ruteo en una red de tamaño mediano o grande?} \\
 		RIP presenta desventajas en redes de mayor escala debido a la cantidad de mensajes de actualización que se generarían periódicamente. Además, al distribuir muchas redes el tamaño de los paquetes de actualización se vuelve considerablemente grande. 
 	\end{enumerate}
 	\subsection{Enlaces consultados}
 	\begin{itemize}
+		\item{HCNA Networking Study Guide}  \\
+		\textit{Springer. Huawei Technologies Co., Ltd.},Ch 8.2 RIP.
 		\item{Temporizadores de RIP}  \\
 		\url{http://www.redescisco.net/sitio/2010/07/19/temporizadores-de-rip/}
 	\end{itemize}
