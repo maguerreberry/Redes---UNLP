@@ -1,4 +1,8 @@
 /system identity set name=2003
 /ip address add address=10.0.0.2/24 interface=ether1
-/ip address add address=192.168.30.1/24 interface=ether2
+/ip address add address=192.168.20.1/24 interface=ether2
 /ip address add address=30.0.0.1/8 interface=ether4
+/routing rip interface add receive=v1 send=v1 interface=all
+/routing rip network add network=192.168.20.0/24
+/routing rip neighbour add 10.0.0.1
+/routing rip neighbour add 30.0.0.2
