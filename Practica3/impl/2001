@@ -1,0 +1,64 @@
+[2001]
+/system identity set name=2001
+/ip address add address=172.17.1.1/24 interface=ether1
+
+/routing ospf area add area-id=0.0.0.10 name=area10
+/routing ospf network add network=172.17.1.0/24 area=area10
+
+[2002]
+/system identity set name=2002
+/ip address add address=210.0.0.1/26 interface=ether1
+
+/routing ospf area add area-id=0.0.0.200 name=area200
+/routing ospf network add network=210.0.0.0/26 area=area200
+
+[2003]
+/system identity set name=2003
+/ip address add address=10.0.10.1/24 interface=ether1
+/ip address add address=210.0.0.2/26 interface=ether2
+/ip address add address=172.17.1.2/24 interface=ether3
+
+/routing ospf area add area-id=0.0.0.10 name=area10
+/routing ospf network add network=172.17.1.0/24 area=area10
+/routing ospf area add area-id=0.0.0.200 name=area200
+/routing ospf network add network=210.0.0.0/26 area=area200
+/routing ospf network add network=10.0.10.0/24 area=backbone
+
+
+[2004]
+/system identity set name=2004
+/ip address add address=10.0.10.2/24 interface=ether1
+/ip address add address=192.168.10.1/24 interface=ether2
+
+/routing ospf area add area-id=0.0.0.192 name=area192
+/routing ospf network add network=192.168.10.0/24 area=area192
+/routing ospf network add network=10.0.10.0/24 area=backbone
+
+[2005]
+/system identity set name=2005
+/ip address add address=10.0.10.3/24 interface=ether1
+/ip address add address=200.5.10.1/24 interface=ether2
+
+/routing ospf network add network=10.0.10.0/24 area=backbone
+/routing ospf area add area-id=0.0.0.100 name=area100
+/routing ospf network add network=200.5.10.0/24 area=area100
+
+[2006]
+/system identity set name=2006
+/ip address add address=200.5.10.2/24 interface=ether1
+
+/routing ospf area add area-id=0.0.0.100 name=area100
+/routing ospf network add network=200.5.10.0/24 area=area100
+
+[2007]
+/system identity set name=2007
+/ip address add address=10.0.10.4/24 interface=ether1
+
+/routing ospf network add network=10.0.10.0/24 area=backbone
+
+[2008]
+/system identity set name=2008
+/ip address add address=192.168.10.2/24 interface=ether1
+
+/routing ospf area add area-id=0.0.0.192 name=area192
+/routing ospf network add network=192.168.10.0/24 area=area192
