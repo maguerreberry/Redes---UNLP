@@ -113,11 +113,18 @@
 		quién se lo envía? ¿Qué dirección utiliza? ¿Qué hace el receptor de
 		este mensaje?}\\
 		El router envia un mensaje LSA Update, con un LSA de tipo 1 (Router Update) a la dirección multicast 224.0.0.6 (Grupo conformado por DR y BDR). El DR envia el mismo mensaje a la dirccion multicast 224.0.0.5 (Grupo conformado por todos los routers), para que actualicen sus bases de datos.
+		\begin{figure}[H] 
+			
+			\centering \includegraphics[width=0.7\columnwidth]{figure/2004_ether2_down.png}
+			%\includegraphics[width=1.0\columnwidth]{sr_setup.pdf}
+			\caption{
+					\label{fig:samplesetup} % spaces are big no-no 
+					Mensajes en el area backbone luego de deshabilitar una interfaz.
+			}
+		\end{figure}
 		\item \textbf{¿Cómo calcula OSPF el mejor camino a una red? ¿Qué algoritmo
 		utiliza?}\\
 		El cálculo del mejor camino es en base al ancho de banda de los enlaces, utilizando el alrgoritmo de Dijkstra.
-
-
 	\end{enumerate}
 
 	\subsection{Enlaces consultados}
