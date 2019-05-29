@@ -69,17 +69,70 @@
 					\label{fig:samplesetup} % spaces are big no-no 
 					Seleccion de la IP configurada en loopback como roter-id. Eleccion de nuevo DR.
 			}
+		\end{figure}
+		\item \textbf{¿Por qué se recomienda definir una dirección de loopback cuando se
+		utiliza OSPF?}\\
+		Para poder controlar la selección del router-id, y por consiguiente la selección del router designado. Ya que si no se configura una interfaz loopback, esta desición depende de las interfaces configuradas, las cuales pueden cambiar dinamicamente.
+		\item \textbf{Explique los distintos tipos de áreas en OSPF}\\
+		\item \textbf{En las areas no backbone, ¿también se elige un DR y un BDR?}\\
+		Sí.
+		\item \textbf{Definir el área 10 como area stub. ¿Qué sucede con la tabla de ruteo
+		en el router 2001?}\\
+		Se le agraga un default gateway, ya que establecer un área stub impide que el área conozca de rutas externas a OSPF, ete permite el acceso a rutas externas si las hubiera a traves de 2003(ABR). En este caso como todas las rutas aprendidas son por OSPF, no se eliminan entradas en la tabla.
+		\begin{figure}[H] 
+			
+			\centering \includegraphics[width=0.7\columnwidth]{figure/routes_default_area.png}
+			%\includegraphics[width=1.0\columnwidth]{sr_setup.pdf}
+			\caption{
+					\label{fig:samplesetup} % spaces are big no-no 
+					Rutas en 2001 antes de la configuración como stub area.
+			}
 		\end{figure} 
-		
+		\begin{figure}[H] 
+			
+			\centering \includegraphics[width=0.7\columnwidth]{figure/routes_stub_area.png}
+			%\includegraphics[width=1.0\columnwidth]{sr_setup.pdf}
+			\caption{
+					\label{fig:samplesetup} % spaces are big no-no 
+					Rutas en 2001 después de la configuración como stub area.
+			}
+		\end{figure}
+		\item \textbf{¿Cómo definiría el área 10 para que 2001 solo aprenda de 2003 una
+		ruta default?}\\
+		Esto se puede lograr configurando el área 10 como \textit{totally stubby area}, este tipo de configuración impide que se intercambien LSAs de tipo 3 que contienen información sobre las rutas de las otras áreas. El comando utilizado en este caso fue \textit{"/routing ospf area set numbers=1 type=stub inject-summary-lsa=no"}
+		\begin{figure}[H] 
+			
+			\centering \includegraphics[width=0.7\columnwidth]{figure/routes_totally_stub.png}
+			%\includegraphics[width=1.0\columnwidth]{sr_setup.pdf}
+			\caption{
+					\label{fig:samplesetup} % spaces are big no-no 
+					Rutas en 2001 después de la configuración como totally stubby area.
+			}
+		\end{figure}
+		\item \textbf{¿Qué mensaje envía el router seleccionado en el área backbone? ¿A
+		quién se lo envía? ¿Qué dirección utiliza? ¿Qué hace el receptor de
+		este mensaje?}\\
+		El router envia un mensaje LSA Update, con un LSA de tipo 1 (Router Update) a la dirección multicast 224.0.0.6 (Grupo conformado por DR y BDR). El DR envia el mismo mensaje a la dirccion multicast 224.0.0.5 (Grupo conformado por todos los routers), para que actualicen sus bases de datos.
+		\begin{figure}[H] 
+			
+			\centering \includegraphics[width=0.7\columnwidth]{figure/2004_ether2_down.png}
+			%\includegraphics[width=1.0\columnwidth]{sr_setup.pdf}
+			\caption{
+					\label{fig:samplesetup} % spaces are big no-no 
+					Mensajes en el area backbone luego de deshabilitar una interfaz.
+			}
+		\end{figure}
+		\item \textbf{¿Cómo calcula OSPF el mejor camino a una red? ¿Qué algoritmo
+		utiliza?}\\
+		El cálculo del mejor camino es en base al ancho de banda de los enlaces, utilizando el alrgoritmo de Dijkstra.
 	\end{enumerate}
 
 	\subsection{Enlaces consultados}
 		\begin{itemize}
 			\item{HCNA Networking Study Guide}  \\
 			\textit{Springer. Huawei Technologies Co., Ltd.},Ch 8.2 RIP.
-			\item{Temporizadores de RIP}  \\
-			\url{http://www.redescisco.net/sitio/2010/07/19/temporizadores-de-rip/}
-
+			\item{Understanding OSPF Stub Areas, Totally Stubby Areas, and Not-So-Stubby Areas}  \\
+			\url{https://www.juniper.net/documentation/en_US/junos/topics/concept/ospf-stub-areas-overview.html}
 			\item{Manual:Routing/OSPF}  \\
 			\url{https://wiki.mikrotik.com/wiki/Manual:Routing/OSPF}
 		\end{itemize}
