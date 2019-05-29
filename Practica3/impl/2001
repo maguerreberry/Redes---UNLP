@@ -8,9 +8,12 @@
 [2002]
 /system identity set name=2002
 /ip address add address=210.0.0.1/26 interface=ether1
+/ip address add address=169.192.30.66/28 interface=ether2
 
 /routing ospf area add area-id=0.0.0.200 name=area200
 /routing ospf network add network=210.0.0.0/26 area=area200
+/routing ospf area add area-id=0.0.0.169 name=area169
+/routing ospf network add network=169.192.30.64/28 area=area169
 
 [2003]
 /system identity set name=2003
@@ -62,3 +65,13 @@
 
 /routing ospf area add area-id=0.0.0.192 name=area192
 /routing ospf network add network=192.168.10.0/24 area=area192
+
+[2009]
+/system identity set name=2009
+/ip address add address=169.192.30.65/28 interface=ether1
+/interface bridge add name=loopback1
+/ip address add address=2.2.2.2/24 interface=loopback1
+
+/routing ospf area add area-id=0.0.0.169 name=area169
+/routing ospf network add network=169.192.30.64/28 area=area169
+/routing ospf network add network=2.2.2.2/24 area=area169
