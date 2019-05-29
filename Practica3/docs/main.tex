@@ -97,8 +97,7 @@
 					Rutas en 2001 después de la configuración como stub area.
 			}
 		\end{figure}
-		\item \textbf{¿Cómo definiría el área 10 para que 2001 solo aprenda de 2003 una
-		ruta default?}\\
+		\item \textbf{¿Cómo definiría el área 10 para que 2001 solo aprenda de 2003 una ruta default?}\\
 		Esto se puede lograr configurando el área 10 como \textit{totally stubby area}, este tipo de configuración impide que se intercambien LSAs de tipo 3 que contienen información sobre las rutas de las otras áreas. El comando utilizado en este caso fue \textit{"/routing ospf area set numbers=1 type=stub inject-summary-lsa=no"}
 		\begin{figure}[H] 
 			
@@ -109,9 +108,9 @@
 					Rutas en 2001 después de la configuración como totally stubby area.
 			}
 		\end{figure}
-		\item \textbf{¿Qué mensaje envía el router seleccionado en el área backbone? ¿A
-		quién se lo envía? ¿Qué dirección utiliza? ¿Qué hace el receptor de
-		este mensaje?}\\
+		\item \textbf{Seleccionar un router que no sea DR ni BDR y deshabilitar la interface que se conecta contra el área no backbone (por ej. si selecciona el router 2004 deshabilitar la interface ether2). Antes de hacer esto habilitar la captura de paquetes en uno de los enlaces del backbone)}
+		
+		\item \textbf{¿Qué mensaje envía el router seleccionado en el área backbone? ¿A		quién se lo envía? ¿Qué dirección utiliza? ¿Qué hace el receptor de este mensaje?}\\
 		El router envia un mensaje LSA Update, con un LSA de tipo 1 (Router Update) a la dirección multicast 224.0.0.6 (Grupo conformado por DR y BDR). El DR envia el mismo mensaje a la dirccion multicast 224.0.0.5 (Grupo conformado por todos los routers), para que actualicen sus bases de datos.
 		\begin{figure}[H] 
 			
@@ -124,7 +123,39 @@
 		\end{figure}
 		\item \textbf{¿Cómo calcula OSPF el mejor camino a una red? ¿Qué algoritmo
 		utiliza?}\\
-		El cálculo del mejor camino es en base al ancho de banda de los enlaces, utilizando el alrgoritmo de Dijkstra.
+		El cálculo del mejor camino es en base al ancho de banda de los enlaces, utilizando el algoritmo de Dijkstra.
+
+		\item \textbf{Agregar un nuevo router a la topología según la figura 2}
+
+		\item \textbf{Habilitar OSPF en el nuevo router y enlace agregado}
+		
+		\item \textbf{En el router 2009, agregar una red loopback, lo0=2.2.2.2/24, y publicarla por OSPF.}
+		
+		\item \textbf{¿Qué sucede con la tabla de ruteo del router 2002 una vez que se habilita OSPF en la interface ether2? Y 2009, ¿aprende algo por OSPF?}\\
+		El router 2002 aprende las rutas del área 169 publicadas por 2009, es decir, las redes 169.192.30.64/28 y 2.2.2.0/24. Por su parte, 2009 aprende las rutas del área 200.
+		
+		\item \textbf{¿Es posible solucionar esto para que las redes del area 169 sean accesibles desde el resto del dominio OSPF?}\\
+		Si, empleando enlaces virtuales que permiten comunicar dos áreas no adyacentes a través de un área de tránsito. Este tipo de áreas necesita dos routers ABRs para pasar tráfico desde un área a otra.\\
+		Entonces, el área 200 será de tránsito para comunicar el área 169 con la backbone y de esta manera las redes del area 169 serán accesibles desde el resto del dominio OSPF.
+		
+		\item \textbf{Agregar un nuevo router a la topologia según la figura 3}
+
+		\item \textbf{Configurar el nuevo enlace y router con RIPv2}
+		
+		\item \textbf{En el router 2010, agregar una red loopback, lo0=220.0.20.1/24, y publicarla por RIPv2.}
+		
+		\item \textbf{¿Qué debería hacer el router 2007 para que el dominio OSPF aprenda la red configurada en el paso anterior? ¿Cómo se conocería a ese router en la terminología de OSPF? (Hint.: investigue el concepto de redistribución)}\\
+		PREGUNTAR A MARRONE.\\
+		En la terminología de OSPF el router 2007 sería conocido como Autonomous System Border Router (ASBR).
+		
+		\item \textbf{Configurar el router 2007 para que los dos dominios, OSFP y RIPv2, intercambien sus rutas.}
+		
+		\item \textbf{¿Cómo aprenden las áreas de OSPF esta nueva ruta? ¿Qué sucede en el area 10? Definirla nuevamente como area stub (permitir los summary LSA) y ver si ahora la aprende. ¿Por qué?}\\
+		Esta nueva ruta sera aprendida como ruta externa. Solo los routers en la backbone la aprenderán. Por ende, el área 10 debe ser definida como stub utilizando a 2003 como ABR.   
+		
+		\item \textbf{Capturar tráfico en el área backbone. Deshabilitar y habilitar la interface ether2 de 2007, ¿cómo se publican las redes del entorno RIP? ¿Existe algún LSA de tipo 5? ¿Por qué existe?}\\
+		
+
 	\end{enumerate}
 
 	\subsection{Enlaces consultados}
