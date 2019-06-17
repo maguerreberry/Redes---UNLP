@@ -56,6 +56,12 @@
 [2007]
 /system identity set name=2007
 /ip address add address=10.0.10.4/24 interface=ether1
+/ip address add address=163.10.5.7/24 interface=ether2
+
+/routing rip interface add interface=ether2
+
+/routing rip network add network=163.10.5.0/24
+/routing rip neighbor add address=163.10.5.10
 
 /routing ospf network add network=10.0.10.0/24 area=backbone
 
@@ -75,3 +81,14 @@
 /routing ospf area add area-id=0.0.0.169 name=area169
 /routing ospf network add network=169.192.30.64/28 area=area169
 /routing ospf network add network=2.2.2.2/24 area=area169
+
+[2010]
+/system identity set name=2010
+/ip address add address=163.10.5.10/24 interface=ether1
+/interface bridge add name=loopback1
+/ip address add address=220.0.20.1/24 interface=loopback1
+
+/routing rip interface add interface=ether2
+
+/routing rip network add network=163.10.5.0/24
+/routing rip neighbor add address=163.10.5.7
