@@ -78,7 +78,7 @@
 		\item \textbf{En las áreas no backbone, ¿tambiénse elige un DR y un BDR?}\\
 		Sí.
 		\item \textbf{Definir el área 10 como área stub. ¿Qué sucede con la tabla de ruteo en el router 2001?}\\
-		Se le agrega un default gateway, ya que establecer un área stub impide que el área conozca de rutas externas a OSPF, ete permite el acceso a rutas externas si las hubiera a traves de 2003(ABR). En este caso como todas las rutas aprendidas son por OSPF, no se eliminan entradas en la tabla.
+		Se le agrega un default gateway, ya que establecer un área stub impide que el área conozca de rutas externas a OSPF, ete permite el acceso a rutas externas si las hubiera a través de 2003(ABR). En este caso como todas las rutas aprendidas son por OSPF, no se eliminan entradas en la tabla.
 		\begin{figure}[H] 
 			
 			\centering \includegraphics[width=0.7\columnwidth]{figure/routes_default_area.png}
@@ -108,7 +108,7 @@
 		\item \textbf{Seleccionar un router que no sea DR ni BDR y deshabilitar la interface que se conecta contra el área no backbone (por ej. si selecciona el router 2004 deshabilitar la interface ether2). Antes de hacer esto habilitar la captura de paquetes en uno de los enlaces del backbone)}
 		
 		\item \textbf{¿Qué mensaje envía el router seleccionado en el área backbone? ¿A quién se lo envía? ¿Qué dirección utiliza? ¿Qué hace el receptor de este mensaje?}\\
-		El router envia un mensaje LSA Update, con un LSA de tipo 1 (Router Update) a la dirección multicast 224.0.0.6 (Grupo conformado por DR y BDR). El DR envia el mismo mensaje a la dirccion multicast 224.0.0.5 (Grupo conformado por todos los routers), para que actualicen sus bases de datos.
+		El router envía un mensaje LSA Update, con un LSA de tipo 1 (Router Update) a la dirección multicast 224.0.0.6 (Grupo conformado por DR y BDR). El DR envía el mismo mensaje a la dirección multicast 224.0.0.5 (Grupo conformado por todos los routers), para que actualicen sus bases de datos.
 		\begin{figure}[H] 
 			
 			\centering \includegraphics[width=0.7\columnwidth]{figure/2004_ether2_down.png}
@@ -140,36 +140,36 @@
 		\item \textbf{En el router 2010, agregar una red loopback, lo0=220.0.20.1/24, y publicarla por RIPv2.}
 		
 		\item \textbf{¿Qué debería hacer el router 2007 para que el dominio OSPF aprenda la red configurada en el paso anterior? ¿Cómo se conocería a ese router en la terminología de OSPF? (Hint.: investigue el concepto de redistribución)}\\
-		En la terminología de OSPF el router 2007 sería conocido como Autonomous System Border Router (ASBR), debido a que se encuentra en la frontera del sistema autonomo administrado por OSPF y a su vez se conceta con otro sistema autonomo en este caso, administardo por RIP. Para que OSPF aprenda las rutas que administra RIP, es necesario aplicar redistribucion. De esta forma, 2007 va a advertir a OSPF de las rutas aprendidas por RIP. \\
-		Como los dos protocolos tienen diferentes metodos para medir la distancia a una red, cuando se configura la redeistribucion se establece una metrica estandar con la cual todas las rutas externas seran advertidas. Existen dos formas por las cual OSPF redistribuye las rutas externas:
+		En la terminología de OSPF el router 2007 sería conocido como Autonomous System Border Router (ASBR), debido a que se encuentra en la frontera del sistema autonomo administrado por OSPF y a su vez se conecta con otro sistema autónomo en este caso, administrado por RIP. Para que OSPF aprenda las rutas que administra RIP, es necesario aplicar redistribución. De esta forma, 2007 va a advertir a OSPF de las rutas aprendidas por RIP. \\
+		Como los dos protocolos tienen diferentes métodos para medir la distancia a una red, cuando se configura la redistribución se establece una métrica estándar con la cual todas las rutas externas serán advertidas. Existen dos formas por las cual OSPF redistribuye las rutas externas:
 		\begin{itemize}
-			\item \textit{Tipo 1}: La metrica de la ruta que se redistribuye tiene en cuenta el costo interno de OSPF para alcanzar esa ruta.
-			\item \textit{Tipo 2}: La metrica de la la ruta que se redistribuye no tiene en cuenta el costo interno de OSPF para alcanzar esa ruta. La ruta se redistribuye en toda la red con una metrica fija (por defecto es 20).
+			\item \textit{Tipo 1}: La métrica de la ruta que se redistribuye tiene en cuenta el costo interno de OSPF para alcanzar esa ruta.
+			\item \textit{Tipo 2}: La métrica de la la ruta que se redistribuye no tiene en cuenta el costo interno de OSPF para alcanzar esa ruta. La ruta se redistribuye en toda la red con una métrica fija (por defecto es 20).
 		\end{itemize}
 		
 		\item \textbf{Configurar el router 2007 para que los dos dominios, OSPF y RIPv2, intercambien sus rutas.}
 		
 		\item \textbf{¿Cómo aprenden las áreas de OSPF esta nueva ruta? ¿Qué sucede en el área 10? Definirla nuevamente como área stub (permitir los summary LSA) y ver si ahora la aprende. ¿Por qué?}\\
-		Esta nueva ruta sera aprendida como ruta externa. Solo los routers en el área backbone la aprenderán. Por ende, el área 10 debe ser definida como stub utilizando a 2003 como ABR. En la imagen a continuacion se puede ver que la ruta aprendida es con un costo de 30, como se configuro la redistribucion con metrica tipo 1, el costo a la nueva ruta es determinado por el costo para llegar al router de borde (2007, en el área 0) que es de 10 mas la metrica por defecto para las rutas externas que es 20.
+		Esta nueva ruta sera aprendida como ruta externa. Solo los routers en el área backbone la aprenderán. Por ende, el área 10 debe ser definida como stub utilizando a 2003 como ABR. En la imagen a continuación se puede ver que la ruta aprendida es con un costo de 30, como se configuro la redistribución con métrica tipo 1, el costo a la nueva ruta es determinado por el costo para llegar al router de borde (2007, en el área 0) que es de 10 mas la métrica por defecto para las rutas externas que es 20.
 
 		\begin{figure}[H] 
 			
 			\centering \includegraphics[width=0.7\columnwidth]{figure/routes_stub_area10.png}
 			\caption{
 					\label{fig:samplesetup} % spaces are big no-no 
-					Rutas aprendidas en router 2003 despues de definir el área como \textit{stub}.
+					Rutas aprendidas en router 2003 después de definir el área como \textit{stub}.
 			}
 		\end{figure}
 		
 		\item \textbf{Capturar tráfico en el área backbone. Deshabilitar y habilitar la interface ether2 de 2007, ¿cómo se publican las redes del entorno RIP? ¿Existe algún LSA de tipo 5? ¿Por qué existe?}\\
-		Los cambios en las redes se publican a traves de un mensaje LS Update donde se encuentran los LSA de tipo 1 y 5. El primero advierte un cambio en la interfaz del router y el segundo adevierte un resumen de las rutas aprendidas externamente.
+		Los cambios en las redes se publican a través de un mensaje LS Update donde se encuentran los LSA de tipo 1 y 5. El primero advierte un cambio en la interfaz del router y el segundo advierte un resumen de las rutas aprendidas externamente.
 
 		\begin{figure}[H] 
 			
 			\centering \includegraphics[width=0.7\columnwidth]{figure/ls_update.png}
 			\caption{
 					\label{fig:samplesetup} % spaces are big no-no 
-					Mensajes capturados en la interfaz ether1 en el router 2007 despues de habilitar/dehabilitar la interfaz ether2.
+					Mensajes capturados en la interfaz ether1 en el router 2007 después de habilitar/deshabilitar la interfaz ether2.
 			}
 		\end{figure}
 	\end{enumerate}
