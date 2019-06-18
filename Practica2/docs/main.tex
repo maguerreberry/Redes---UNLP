@@ -43,7 +43,7 @@
 \end{figure}
 	\begin{enumerate}
 		\item \textbf{¿RIPv1 es un protocolo de vector-distancia o estado-enlace? ¿Y RIPv2? ¿Conoce algún otro protocolo de ruteo de la misma familia?} \\
-		Por su comportamiento y la forma de determinar la ruta mas corta tanto RIPv1 como RIPv2 son de tipo vector-distancia. El protocolo de ruteo externo BGP pertence a la misma familia de RIP.
+		Por su comportamiento y la forma de determinar la ruta mas corta tanto RIPv1 como RIPv2 son de tipo vector-distancia. El protocolo de ruteo Enhanced Interior Gateway Routing Protocol (EIGRP) pertenece a la misma familia de RIP, es un protocolo propietario de Cisco el cual fue convertido a código abierto en 2013.
 		\item \textbf{¿Pertenecen al grupo de IGP o EGP?}\\
 		RIP pertenece al grupo de IGP (\textit{Internal Gateway Protocol}, o protocolos de ruteo interno)
 		\item \textbf{¿Qué mejoras incluye RIPv2 con respecto a RIPv1?}\\
@@ -55,8 +55,9 @@
 		\textit{Invalid}: Por defecto es de 180 segundos y corresponde al tiempo en el cual una ruta se almacenará en la tabla de enrutamiento hasta que se considere inválida.\\
 		\textit{Flush}: Define el tiempo que toma el router en eliminar una ruta desde que se declaró como inválida. Por defecto son 240 segundos.
 		\item \textbf{¿Cómo funcionan Triggered Updates, Counting to infinity,Split-Horizon y Poisoned Reversed?}\\
-		\textit{Counting to infinity}: Es una inconsistencia que surge ya que los routers propagan lentamente los mensajes de actualización.\\
-		\textit{Triggered Updates}: Es un mecanismo que fuerza al router a enviar inmediatamente una actualización ante una ruta caída.\\
+		\textit{Counting to infinity}: Es una inconsistencia que surge ya que los routers propagan lentamente los mensajes de actualización de una ruta que no es mas alcanzable.  Ya que la ruta queda en loop y la distancia a esa ruta se empieza a incrementar debido a que, por ejemplo,  
+		dos routers vecinos se podrían enviar infinitamente una ruta. Por esta razón se establece una cantidad máxima de 16 saltos en las rutas.\\
+		\textit{Triggered Updates}: Es un mecanismo que fuerza al router a enviar inmediatamente una actualización ante un cambio en las tablas de ruteo.\\
 		\textit{Split-Horizon}: Impide que se envíen actualizaciones de ruta por la interfaz por la que se aprendió dicha ruta.\\
 		\textit{Poisoned Reversed}: Cuando a un router se le cae una ruta, él debe mandar una actualización con métrica 16 para declarar la ruta como \textit{unreachable}.
 
@@ -108,7 +109,7 @@
 			}
 		\end{figure}
 		\item \textbf{¿Usaría RIP como protocolo de ruteo en una red de tamaño mediano o grande?} \\
-		RIP presenta desventajas en redes de mayor escala debido a la cantidad de mensajes de actualización que se generarían periódicamente. Además, al distribuir muchas redes el tamaño de los paquetes de actualización se vuelve considerablemente grande. 
+		RIP presenta desventajas en redes de mayor escala debido a la cantidad de mensajes de actualización que se generarían periódicamente y el tiempo de convergencia es muy lento. Además, al distribuir muchas redes el tamaño de los paquetes de actualización se vuelve considerablemente grande. 
 	\end{enumerate}
 	\subsection{Enlaces consultados}
 	\begin{itemize}
