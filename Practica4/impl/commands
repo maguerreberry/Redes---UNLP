@@ -1,0 +1,47 @@
+[4270A]
+/system identity set name=4270A
+/ip address add address=170.210.0.65/30 interface=ether1
+/interface bridge add name=LoopBack
+/ip address add address=70.0.0.1/8 interface=LoopBack
+
+/routing bgp instance set default as=4270
+/routing bgp peer add name=peer-5692 remote-address=170.210.0.66 remote-as=5692
+
+
+[5692A]
+/system identity set name=5692A
+/ip address add address=163.10.199.146/30 interface=ether1
+/ip address add address=200.41.238.130/29 interface=ether2
+/ip address add address=163.10.199.106/30 interface=ether3
+
+/routing bgp instance set default as=5692
+/routing bgp peer add name=peer-10834 remote-address=200.41.238.129 remote-as=10834
+/routing bgp peer add name=peer-5692B remote-address=163.10.199.105 remote-as=5692
+
+[5692B]
+/system identity set name=5692B
+/ip address add address=163.10.199.105/30 interface=ether1
+/ip address add address=170.210.0.66/30 interface=ether2
+
+/routing bgp instance set default as=5692
+/routing bgp peer add name=peer-4270 remote-address=170.210.0.65 remote-as=4270
+/routing bgp peer add name=peer-5692A remote-address=163.10.199.106 remote-as=5692
+
+[5692C]
+/system identity set name=5692C
+/ip address add address=163.10.199.145/30 interface=ether1
+/interface bridge add name=LoopBack1
+/interface bridge add name=LoopBack2
+/interface bridge add name=LoopBack3
+/ip address add address=163.10.0.1/8 interface=LoopBack1
+/ip address add address=163.10.1.1/8 interface=LoopBack2
+/ip address add address=163.10.8.1/8 interface=LoopBack3
+
+[10834A]
+/system identity set name=10834A
+/ip address add address=200.41.238.129/29 interface=ether1
+/interface bridge add name=LoopBack
+/ip address add address=20.0.0.1/8 interface=LoopBack
+
+/routing bgp instance set default as=10834
+/routing bgp peer add name=peer-5692 remote-address=200.41.238.130 remote-as=5692
