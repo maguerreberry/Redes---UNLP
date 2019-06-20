@@ -45,3 +45,4 @@
 
 /routing bgp instance set default as=10834
 /routing bgp peer add name=peer-5692 remote-address=200.41.238.130 remote-as=5692
+/routing bgp network add network=20.0.0.0/8
