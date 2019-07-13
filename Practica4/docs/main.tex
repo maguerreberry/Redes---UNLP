@@ -78,16 +78,30 @@
 		
 		\item \textbf{¿Qué significa que el orígen de la ruta sea IGP? ¿Qué otros orígenes pueden existir?}\\
 		Que el orígen de la ruta sea IGP quiere decir que la ruta se aprendió internamente en el AS. Los posibles valors del campo ORIGIN son: 0 origen IGP; 1 origen EGP (generalmente BGP); y 2 origen desconocido. 
+		
 		\item \textbf{¿Cuál es la función de los mensajes KeepAlive?}\\
 		Para mantener establecida una sesión BGP. En caso de no recibir ninguno de estos mensajes y expirar el tiempo de \textit{HOLD\_DOWN}, el vecino se declara caído y todas sus rutas son eliminadas.
+		
 		\item \textbf{Configurar BGP para que se intercambien los prefijos descriptos en el diagrama entre los AS:}
 		\begin{enumerate}
 			\item \textbf{Resolver en el AS con varios routers el ruteo interno mediante un protocolo IGP (OSPF o RIP).}
 			\item \textbf{Ver la tabla de rutas BGP aprendidas y publicadas por cada router.}
-			\item \textbf{¿Qué tipos de rutas hay insertadas en la tabla de ruteo? ¿Qué distancia poseen?}
+			\item \textbf{¿Qué tipos de rutas hay insertadas en la tabla de ruteo? ¿Qué distancia poseen?}\\
+			Las rutas aprendidas son de tipo BGP internas y poseen una distancia administrativa de 200.
+			
+			\begin{figure}[H]
+				\centering \includegraphics[width=1\columnwidth]{figure/bgp-open.png}
+				\caption{
+					\label{fig:samplesetup} % spaces are big no-no
+					Tabla de rutas BGP del router 5692A.
+				}
+			\end{figure}
+			
 			\item \textbf{Probar la conectividad de loopback a loopback con ping (usar el ping extendido para modificar la IP origen de los ICMP)}
-			\item \textbf{Si no es posible llegar inspeccionar las tabla de enrutamiento. ¿Qué debería agregar en router 5692C para que llegue a la loopback del AS 10384?}
-			\item \textbf{¿Y para alcanzar la red 70.0.0.0/8 del AS 4270? ¿Por que no aprende el router 5692A la ruta a esa red?}
+			\item \textbf{Si no es posible llegar inspeccionar las tabla de enrutamiento. ¿Qué debería agregar en router 5692C para que llegue a la loopback del AS 10384?}\\
+			Al router 5692C se le debe agregar una default gateway a 163.10.199.146, donde se encuentra un router BGP que conoce como enrutar hacia el AS 10834.
+			\item \textbf{¿Y para alcanzar la red 70.0.0.0/8 del AS 4270? ¿Por que no aprende el router 5692A la ruta a esa red?}\\
+			Para alcanzar la red 70.0.0.0/8 del AS 4270 se debe publicar dicha red por BGP para que el router 5692A la aprenda y sepa routear tráfico hacia ella.
 			\item \textbf{¿Qué debería suceder para que las loopbacks de los ASs 10834 y 4270 puedan conectase entre sı? ¿Como debería funcionar el AS 5692?}
 		\end{enumerate}
 		
