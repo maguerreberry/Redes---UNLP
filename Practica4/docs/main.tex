@@ -102,7 +102,8 @@
 			Al router 5692C se le debe agregar una default gateway a 163.10.199.146, donde se encuentra un router BGP que conoce como enrutar hacia el AS 10834.
 			\item \textbf{¿Y para alcanzar la red 70.0.0.0/8 del AS 4270? ¿Por que no aprende el router 5692A la ruta a esa red?}\\
 			Para alcanzar la red 70.0.0.0/8 del AS 4270 se debe publicar dicha red por BGP para que el router 5692A la aprenda y sepa routear tráfico hacia ella.
-			\item \textbf{¿Qué debería suceder para que las loopbacks de los ASs 10834 y 4270 puedan conectase entre sı? ¿Como debería funcionar el AS 5692?}
+			\item \textbf{¿Qué debería suceder para que las loopbacks de los ASs 10834 y 4270 puedan conectase entre sı? ¿Como debería funcionar el AS 5692?}\\
+			El AS 5692 debería ser configurado como AS de tránsito.
 		\end{enumerate}
 		
 		\item \textbf{Configurar el AS 5692 como un AS de transito y probar la conectividad entre los AS externos (usar el atributo next-hop):}
