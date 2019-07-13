@@ -90,7 +90,7 @@
 			Las rutas aprendidas son de tipo BGP internas y poseen una distancia administrativa de 200.
 			
 			\begin{figure}[H]
-				\centering \includegraphics[width=1\columnwidth]{figure/bgp-open.png}
+				\centering \includegraphics[width=1\columnwidth]{figure/bgp-route.png}
 				\caption{
 					\label{fig:samplesetup} % spaces are big no-no
 					Tabla de rutas BGP del router 5692A.
@@ -107,8 +107,18 @@
 		\end{enumerate}
 		
 		\item \textbf{Configurar el AS 5692 como un AS de transito y probar la conectividad entre los AS externos (usar el atributo next-hop):}
+		
+		\begin{figure}[H]
+			\centering \includegraphics[width=1\columnwidth]{figure/bgp-peer.png}
+			\caption{
+				\label{fig:samplesetup} % spaces are big no-no
+				Configuración de los vecinos IBGP.
+			}
+		\end{figure}
+		
 		\begin{enumerate}
-			\item \textbf{¿Qué otras opciones podría elegir para hacer lo mismo pero sin utilizar el atributo next-hop?}
+			\item \textbf{¿Qué otras opciones podría elegir para hacer lo mismo pero sin utilizar el atributo next-hop?}\\
+			Poniendo rutas estáticas en los routers 5692A y 5692B para llegar a las redes 70.0.0.0/8 y 20.0.0.0/8 respectivamente.
 			\item \textbf{Publicar desde el AS 10834 un prefijo privado, e.g. 192.168.1.0/24.}
 			\item \textbf{Filtrar los prefijos privados de entrada desde el AS 5692.}
 			\item \textbf{Publicar un prefijo /27 desde el AS 10834, e.g. 170.210.2.0/27.}
@@ -136,6 +146,6 @@
 			{Understanding OSPF External Metrics}
 			\item \href{https://wiki.mikrotik.com/wiki/Manual:Routing/OSPF}
 			{Manual:Routing/OSPF}
-
+			\item \href{http://bgphelp.com/2017/03/05/bgp-next-hop-self-explained/}{BGP Next-Hop Self Explained}
 		\end{itemize}
 \end{document}
